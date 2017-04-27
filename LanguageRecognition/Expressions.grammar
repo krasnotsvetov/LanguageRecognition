@@ -1,0 +1,26 @@
+﻿program             : expressionStatement;
+expressionStatement : expression Semicolon expressionStatement | expression Semicolon;
+expression          : mutable EqualOp expression| sumExpression;
+sumExpression		: sumExpression sum term | term;
+sum					: SubOp | SumOp;
+mutable				: variable;
+term				: term MulOp powExpression | powExpression;
+powExpression		: unaryExpression PowOp powExpression | unaryExpression;
+unaryExpression		: SubOp unaryExpression | variable | constant | OpenBracket sumExpression CloseBracket;
+variable			: Id;
+constant			: Number;
+
+
+Id					: "[_a-zA-Z][_a-zA-Z0-9]*";
+Number				: "[0-9]+";
+WhiteSpace          : "\s" -> skip;
+NewLine             : "\n+" -> skip;
+EqualOp				: "=";
+SumOp				: "\+";
+SubOp				: "-";
+MulOp				: "\*";
+PowOp				: "\^";
+OpenBracket			: "\(";
+CloseBracket		: "\)";
+Semicolon			: ";";
+
