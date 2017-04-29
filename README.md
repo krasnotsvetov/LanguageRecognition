@@ -19,9 +19,9 @@ TODO:
 
 7)Make a grammar build tool.
 
-8)Generate grammar file parser by my parser.
+8)Generate grammar file parser by my generator.
 
-
+9)Add more effective solution for creating LALR table (dragonbook 4.7.5)
 How it works:
 
 You should create a grammar file and project. 
