@@ -9,31 +9,26 @@ using System.Threading.Tasks;
 
 namespace LanguageRecognition.CodeGenerator
 {
-    public class LRTable : ITable
+    public class LRTable : BaseTable
     {
-        public Dictionary<int, Dictionary<IProductionElement, TableElement>> Table { get; private set; }
 
-        private GrammarBuilder grammarBuilder;
         
         /// <summary>
         /// It's C set from dragonbook.
         /// </summary>
-        private List<LRNode> CSet = new List<LRNode>();
+        internal List<LRNode> CSet = new List<LRNode>();
 
         private int nodeIndex = 0;
 
 
 
-        public LRTable(GrammarBuilder builder)
+        public LRTable(GrammarBuilder builder) : base(builder)
         {
-            Table = new Dictionary<int, Dictionary<IProductionElement, TableElement>>();
-            this.grammarBuilder = builder;
         }
 
-        public void Build()
+        public override void Build()
         {
             ConstructCSet();
-
             BuildTable();
         }
 
@@ -109,20 +104,7 @@ namespace LanguageRecognition.CodeGenerator
             }
         }
 
-        public string PackTableToString()
-        {
-            StringBuilder sb = new StringBuilder();
-            sb.Append(Table.Count + "\n");
-            for (int i = 0; i < Table.Count; i++)
-            {
-                sb.Append(Table[i].Count + "\n");
-                foreach (var kvp in Table[i])
-                {
-                    sb.Append(kvp.Key.Name + " " + kvp.Value.Num + " " + (int)kvp.Value.State + "\n");
-                }
-            }
-            return sb.ToString();
-        }
+       
 
 
         LRNode Closure(LRNode node)
@@ -250,6 +232,13 @@ namespace LanguageRecognition.CodeGenerator
 
         }
 
+
+        /// <summary>
+        /// Calculate FIRST from concat element and a
+        /// </summary>
+        /// <param name="element"></param>
+        /// <param name="a"></param>
+        /// <returns></returns>
         private List<TerminalProduction> CalculateFirst(IProductionElement element, TerminalProduction a)
         {
             if (element is EpsilonProduction || element is EOFProduction)

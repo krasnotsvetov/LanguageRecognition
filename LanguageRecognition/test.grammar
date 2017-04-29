@@ -1,13 +1,5 @@
-﻿e  : t ea |;
-ea : PlusOP t ea | ;
-t  : f ta;
-ta : MulOP f ta | ;
-f  : N | OpenBracket e CloseBracket;
+﻿s : c c;
+c : C c | D;
 
-
-N : "[0-9]*";
-PlusOP : "\+";
-MulOP : "\*";
-OpenBracket : "\(";
-CloseBracket : "\)";
-WhiteSpace   : "\s"-> skip;
+C : "c";
+D : "d";

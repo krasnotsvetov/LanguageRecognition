@@ -43,8 +43,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CodeGenerator\BaseTable.cs" />
     <Compile Include="CodeGenerator\Generator.cs" />
     <Compile Include="CodeGenerator\ITable.cs" />
+    <Compile Include="CodeGenerator\LALR\LALRNode.cs" />
+    <Compile Include="CodeGenerator\LALR\LALRNodeElement.cs" />
     <Compile Include="CodeGenerator\LR\LRNodeElement.cs" />
     <Compile Include="CodeGenerator\LR\LRTable.cs" />
     <Compile Include="CodeGenerator\LALR\LALRTable.cs" />
@@ -60,13 +63,13 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="tes3t.grammar">
+    <None Include="test.grammar">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Expressions.grammar">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="test.grammar">
+    <None Include="test4.grammar">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>

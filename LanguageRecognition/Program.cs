@@ -15,11 +15,14 @@ namespace LanguageRecognition
             if (args.Length != 4)
             {
                 Console.WriteLine("Usage:: <namespace_name>, <grammar_name>, <grammar_file_path>, <project_dir_path>");
+                return;
             } else
             {
-                new Generator(args[0], args[1], args[2], args[3]);
+                using(var generator = new Generator(args[0], args[1], args[2], args[3])) {
+                    generator.Generate();
+                }
             }
-            new Generator("Sample.Generated", "Expression", "Expressions.grammar", @"C:\workspace\Itmo\LanguageRecognition\Sample\Generated\").Generate();
+            //new Generator("Sample.Generated", "Expression", "Expressions.grammar", @"C:\workspace\Itmo\LanguageRecognition\Sample\Generated\").Generate();
         }
     }
 }

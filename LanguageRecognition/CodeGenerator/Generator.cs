@@ -16,7 +16,7 @@ namespace LanguageRecognition.CodeGenerator
     //     a) methods which generate vocabulary
     //     b) methods which generate Nodes
     //     c) methods which generate table 
-    public class Generator
+    public class Generator : IDisposable
     {
         private string namespaceName;
         private string grammarName;
@@ -38,11 +38,14 @@ namespace LanguageRecognition.CodeGenerator
 
         };
 
+        private FileStream grammarStream;
+
         public Generator(string namespaceName, string grammarName, string grammarFilePath, string outputPath)
         {
+            this.grammarStream = new FileStream(grammarFilePath, FileMode.Open);
             this.namespaceName = namespaceName;
             this.grammarName = grammarName;
-            this.grammarBuilder = new GrammarBuilder(new FileStream(grammarFilePath, FileMode.Open));
+            this.grammarBuilder = new GrammarBuilder(grammarStream);
             this.outputPath = outputPath;
         }
 
@@ -58,7 +61,7 @@ namespace LanguageRecognition.CodeGenerator
             GenerateNonTerminalsNode();
 
 
-            table = new LRTable(grammarBuilder);
+            table = new LALRTable(grammarBuilder);
             table.Build();
 
             GenereteParserFile();
@@ -372,6 +375,11 @@ namespace LanguageRecognition.CodeGenerator
             }
             rv.Append($"{GetTabs(tabsCount)}}};\n");
             return rv.ToString();
+        }
+
+        public void Dispose()
+        {
+            grammarStream.Dispose();
         }
     }
 }
