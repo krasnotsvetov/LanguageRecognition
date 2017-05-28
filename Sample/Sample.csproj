@@ -44,32 +44,84 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Evaluator.cs" />
-    <Compile Include="Generated\CloseBracketNode.cs" />
-    <Compile Include="Generated\constantNode.cs" />
-    <Compile Include="Generated\EqualOpNode.cs" />
-    <Compile Include="Generated\expressionNode.cs" />
-    <Compile Include="Generated\ExpressionParser.cs" />
-    <Compile Include="Generated\expressionStatementNode.cs" />
-    <Compile Include="Generated\ExpressionVocabulary.cs" />
-    <Compile Include="Generated\IdNode.cs" />
-    <Compile Include="Generated\MulOpNode.cs" />
-    <Compile Include="Generated\mutableNode.cs" />
-    <Compile Include="Generated\NewLineNode.cs" />
-    <Compile Include="Generated\NumberNode.cs" />
-    <Compile Include="Generated\OpenBracketNode.cs" />
-    <Compile Include="Generated\powExpressionNode.cs" />
-    <Compile Include="Generated\PowOpNode.cs" />
-    <Compile Include="Generated\programNode.cs" />
-    <Compile Include="Generated\SemicolonNode.cs" />
-    <Compile Include="Generated\startRuleNode.cs" />
-    <Compile Include="Generated\SubOpNode.cs" />
-    <Compile Include="Generated\sumExpressionNode.cs" />
-    <Compile Include="Generated\sumNode.cs" />
-    <Compile Include="Generated\SumOpNode.cs" />
-    <Compile Include="Generated\termNode.cs" />
-    <Compile Include="Generated\unaryExpressionNode.cs" />
-    <Compile Include="Generated\variableNode.cs" />
-    <Compile Include="Generated\WhiteSpaceNode.cs" />
+    <Compile Include="Generated\CloseBracketNode.cs">
+      <isGenerated>true</isGenerated>
+    </Compile>
+    <Compile Include="Generated\constantNode.cs">
+      <isGenerated>true</isGenerated>
+    </Compile>
+    <Compile Include="Generated\EqualOpNode.cs">
+      <isGenerated>true</isGenerated>
+    </Compile>
+    <Compile Include="Generated\expressionNode.cs">
+      <isGenerated>true</isGenerated>
+    </Compile>
+    <Compile Include="Generated\ExpressionParser.cs">
+      <isGenerated>true</isGenerated>
+    </Compile>
+    <Compile Include="Generated\expressionStatementNode.cs">
+      <isGenerated>true</isGenerated>
+    </Compile>
+    <Compile Include="Generated\ExpressionVocabulary.cs">
+      <isGenerated>true</isGenerated>
+    </Compile>
+    <Compile Include="Generated\IdNode.cs">
+      <isGenerated>true</isGenerated>
+    </Compile>
+    <Compile Include="Generated\MulOpNode.cs">
+      <isGenerated>true</isGenerated>
+    </Compile>
+    <Compile Include="Generated\mutableNode.cs">
+      <isGenerated>true</isGenerated>
+    </Compile>
+    <Compile Include="Generated\NewLineNode.cs">
+      <isGenerated>true</isGenerated>
+    </Compile>
+    <Compile Include="Generated\NumberNode.cs">
+      <isGenerated>true</isGenerated>
+    </Compile>
+    <Compile Include="Generated\OpenBracketNode.cs">
+      <isGenerated>true</isGenerated>
+    </Compile>
+    <Compile Include="Generated\powExpressionNode.cs">
+      <isGenerated>true</isGenerated>
+    </Compile>
+    <Compile Include="Generated\PowOpNode.cs">
+      <isGenerated>true</isGenerated>
+    </Compile>
+    <Compile Include="Generated\programNode.cs">
+      <isGenerated>true</isGenerated>
+    </Compile>
+    <Compile Include="Generated\SemicolonNode.cs">
+      <isGenerated>true</isGenerated>
+    </Compile>
+    <Compile Include="Generated\startRuleNode.cs">
+      <isGenerated>true</isGenerated>
+    </Compile>
+    <Compile Include="Generated\SubOpNode.cs">
+      <isGenerated>true</isGenerated>
+    </Compile>
+    <Compile Include="Generated\sumExpressionNode.cs">
+      <isGenerated>true</isGenerated>
+    </Compile>
+    <Compile Include="Generated\sumNode.cs">
+      <isGenerated>true</isGenerated>
+    </Compile>
+    <Compile Include="Generated\SumOpNode.cs">
+      <isGenerated>true</isGenerated>
+    </Compile>
+    <Compile Include="Generated\termNode.cs">
+      <isGenerated>true</isGenerated>
+    </Compile>
+    <Compile Include="Generated\unaryExpressionNode.cs">
+      <isGenerated>true</isGenerated>
+    </Compile>
+    <Compile Include="Generated\variableNode.cs">
+      <isGenerated>true</isGenerated>
+    </Compile>
+    <Compile Include="Generated\WhiteSpaceNode.cs">
+      <isGenerated>true</isGenerated>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

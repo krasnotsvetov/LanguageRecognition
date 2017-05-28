@@ -1,5 +1,15 @@
-﻿s : c c;
-c : C c | D;
+﻿e  : a eA;
+eA : OR e | XOR e | ;
+a  : n aa;
+aa : AND a | ;
+n  : NOT v | v;
+v  : ID | OB e CB;
 
-C : "c";
-D : "d";
+OR  : "or" ;
+AND : "and";
+NOT : "not";
+XOR : "xor";
+OB  : "(";
+CB  : ")";
+ID  : "[a-zA-Z]*";
+WS  : "\s" -> skip;   

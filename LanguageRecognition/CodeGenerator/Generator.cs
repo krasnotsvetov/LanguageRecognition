@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using System.IO;
 using GrammarFileParser;
 using GrammarFileParser.GrammarElements;
+using System.Xml;
+using Microsoft.Build.Evaluation;
 
 namespace LanguageRecognition.CodeGenerator
 {
@@ -18,9 +20,13 @@ namespace LanguageRecognition.CodeGenerator
     //     c) methods which generate table 
     public class Generator : IDisposable
     {
+
+        private List<string> generatedClassNames = new List<string>();
+
         private string namespaceName;
         private string grammarName;
         private string outputPath;
+        private string projectFilePath;
         private ITable table;
 
         private GrammarBuilder grammarBuilder;
@@ -40,13 +46,14 @@ namespace LanguageRecognition.CodeGenerator
 
         private FileStream grammarStream;
 
-        public Generator(string namespaceName, string grammarName, string grammarFilePath, string outputPath)
+        public Generator(string namespaceName, string grammarName, string grammarFilePath, string outputPath, string projectFilePath)
         {
             this.grammarStream = new FileStream(grammarFilePath, FileMode.Open);
             this.namespaceName = namespaceName;
             this.grammarName = grammarName;
             this.grammarBuilder = new GrammarBuilder(grammarStream);
             this.outputPath = outputPath;
+            this.projectFilePath = projectFilePath;
         }
 
 
@@ -54,6 +61,10 @@ namespace LanguageRecognition.CodeGenerator
         {
             grammarBuilder.Build();
 
+            if (!Directory.Exists(outputPath))
+            {
+                Directory.CreateDirectory(outputPath);
+            }
 
             //GenerateNodeInterface();
             GenerateVocabulary();
@@ -65,10 +76,36 @@ namespace LanguageRecognition.CodeGenerator
             table.Build();
 
             GenereteParserFile();
+
+            InsertInProjectFile();
+        }
+
+        private void InsertInProjectFile()
+        {
+            var project = new Project(projectFilePath);
+            List<ProjectItem> toRemove = new List<ProjectItem>();
+            foreach (var pi in project.AllEvaluatedItems)
+            {
+                foreach (var metadataElement in pi.Metadata)
+                {
+                    if (metadataElement.Name.Equals("isGenerated") && metadataElement.UnevaluatedValue.Equals("true"))
+                    {
+                        toRemove.Add(pi);
+                        break;
+                    }
+                }
+            }
+            project.RemoveItems(toRemove);
+            foreach (var name in generatedClassNames)
+            {
+                project.AddItem("Compile", $"Generated\\{name}", new KeyValuePair<string, string>[] { new KeyValuePair<string, string>("isGenerated", "true") });
+            }
+            project.Save();
         }
 
         private void GenerateNodeInterface()
         {
+            generatedClassNames.Add($"INode.cs");
             using (var sw = new StreamWriter(new FileStream($"{outputPath}INode.cs", FileMode.Create)))
             {
                 sw.WriteLine($"namespace {namespaceName}.Generated");
@@ -91,6 +128,8 @@ namespace LanguageRecognition.CodeGenerator
 
         private void GenerateTerminalNode(Terminal t)
         {
+            generatedClassNames.Add($"{t.Name}Node.cs");
+
             using (var sw = new StreamWriter(new FileStream($"{outputPath}{t.Name}Node.cs", FileMode.Create)))
             {
                 WriteUsings(sw);
@@ -155,6 +194,8 @@ namespace LanguageRecognition.CodeGenerator
                     }
                 }
             }
+
+            generatedClassNames.Add($"{t.Name}Node.cs");
             using (var sw = new StreamWriter(new FileStream($"{outputPath}{t.Name}Node.cs", FileMode.Create)))
             {
                 WriteUsings(sw);
@@ -240,6 +281,7 @@ namespace LanguageRecognition.CodeGenerator
 
         private void GenerateVocabulary ()  
         {
+            generatedClassNames.Add($"{grammarName}Vocabulary.cs");
             using (var sw = new StreamWriter(new FileStream($"{outputPath}{grammarName}Vocabulary.cs", FileMode.Create)))
             {
                 WriteUsings(sw);
@@ -284,6 +326,7 @@ namespace LanguageRecognition.CodeGenerator
 
         private void GenereteParserFile()
         {
+            generatedClassNames.Add($"{grammarName}Parser.cs");
             using (var sw = new StreamWriter(new FileStream($"{outputPath}{grammarName}Parser.cs", FileMode.Create)))
             {
                 WriteUsings(sw);
